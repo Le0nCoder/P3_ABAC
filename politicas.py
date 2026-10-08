@@ -1,6 +1,8 @@
 #Politicas.py
 
 def evaluar_acceso(solicitud):
+
+
     """
     PDP: evalua las politicasde autorización
     
@@ -18,6 +20,7 @@ def evaluar_acceso(solicitud):
     resource = solicitud.get("resource")
     action = solicitud.get("action")
     environment = solicitud.get("environment")
+
     
     if not all([
         isinstance(subject, dict),
@@ -51,5 +54,22 @@ def evaluar_acceso(solicitud):
     #ACTTIVIDAD 2
     #REGLA PARA PROFESORES
     
-    if subject.get("role")== "Profesor": 
-        return "PERMIT", "Bienvenido profesor"
+    if subject.get("role")!= "Profesor": 
+        return "PERMIT", "Solo personal autorizado"
+
+    #Verificar grupos asignados y acción READ
+
+    '''
+    Si el campo de "group esta vacio y la acción es de "Read" se deniega el acceso ya que no hay grupos asignados
+    '''
+
+    if subject.get("group")=="" and "action" == "Read":
+        return "DENY", "No hay grupos asignados"
+
+    #Actividad 3
+    #Implementar regla para estudiantes
+
+    if subject.get("role")== "Alumno" and subject.get("status"):
+        return "PERMIT", "Acceso permitido para estudiantes activos"
+
+    

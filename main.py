@@ -1,5 +1,5 @@
 from politicas import evaluar_acceso
-from solicitudes import solicitud_1, solicitud_2, solicitud_3  # solicitud_4
+from solicitudes import solicitud_1, solicitud_2, solicitud_3, solicitud_4
 
 def aplicar_decision(solicitud):
     """
@@ -22,4 +22,4 @@ def aplicar_decision(solicitud):
 aplicar_decision(solicitud_1)
 aplicar_decision(solicitud_2)
 aplicar_decision(solicitud_3)
-# aplicar_decision(solicitud_4)
+aplicar_decision(solicitud_4)
