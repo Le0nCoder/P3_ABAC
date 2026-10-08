@@ -1,0 +1,55 @@
+#Politicas.py
+
+def evaluar_acceso(solicitud):
+    """
+    PDP: evalua las politicasde autorización
+    
+    Retorna:
+    
+    ("PERMIT", motivo)
+    ("DENY", motivo)
+    """
+    
+    
+    if not isinstance(solicitud, dict):
+        return "DENY","Solicitud invalida"
+    
+    subject = solicitud.get("subject")
+    resource = solicitud.get("resource")
+    action = solicitud.get("action")
+    environment = solicitud.get("environment")
+    
+    if not all([
+        isinstance(subject, dict),
+        isinstance(resource, dict),
+        isinstance(environment, dict),
+        isinstance(action, str),
+    ]):
+        return "DENY","Atributos insuficientes"
+    
+    
+    
+    #P01: Comprobar que la cuenta este activa
+    if subject.get("status")!="Active":
+        return "DENY","Periodo no vigente"
+    
+    #P03: Comprobar el periodo academico
+    if environment.get("academic_period")!="Active":
+        return "DENY",  "Dispositivo no registrado"
+    
+    #P04: Comprobar el dispositivo
+    if environment.get("device_registered") is not True:
+        return "DENY", "Dispositivo no registrado"
+    
+    
+    #ACTIVIDAD 1
+    #Comprobar que el recurso es calificaciones
+    
+    if resource.get("type")!="Calificaciones":
+        return "DENY", "No hay calificaciones disponibles"
+    
+    #ACTTIVIDAD 2
+    #REGLA PARA PROFESORES
+    
+    if subject.get("role")== "Profesor": 
+        return "PERMIT", "Bienvenido profesor"
