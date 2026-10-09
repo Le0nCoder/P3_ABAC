@@ -60,7 +60,7 @@ def evaluar_acceso(solicitud):
     #Verificar grupos asignados y acción READ
 
     '''
-    Si el campo de "group esta vacio y la acción es de "Read" se deniega el acceso ya que no hay grupos asignados
+    Si el campo de "group" esta vacio y la acción es de "Read" se deniega el acceso ya que no hay grupos asignados
     '''
 
     if subject.get("group")=="" and "action" == "Read":
@@ -72,4 +72,18 @@ def evaluar_acceso(solicitud):
     if subject.get("role")== "Alumno" and subject.get("status"):
         return "PERMIT", "Acceso permitido para estudiantes activos"
 
+    #Comparación subject id con owner id de la solicitud
+
+    if subject.get("id") != resource.get("owner_id"):
+        return "DENY", "Acceso denegado: propietario no coincide"
+
+    #Actividad 4
+    '''
+    Asegurar que WRITE, DELETE y DOWNLOAD no sean permitidos por esta política
+    '''
+
+    if action in ["write","delete","download"] == True:
+        return "DENY", "Acción denegada"
+
+    #P07 Default Deny
     
