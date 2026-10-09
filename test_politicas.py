@@ -1,6 +1,9 @@
+#librerias importadas
 import copy
 import unittest
 
+
+#Importaciones de otroso programas en la misma carpeta
 from solicitudes import solicitud_1
 from politicas import evaluar_acceso
 

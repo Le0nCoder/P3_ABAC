@@ -68,3 +68,24 @@ solicitud_3 ={
         "device_registered":False,
     }
 }
+    
+solicitud_4 ={
+    "subject":{
+        "id" : "P004",
+        "role": "Alumno",
+        "status": "Active",
+        "assigned_groups": [""]
+    },
+    
+    "resource":{
+        "type":"Calificaciones",
+        "group":"5A",
+        "owner_id":"None",
+    },
+    
+    "action":"Read",
+    "environment":{
+        "academic_period":"Active",
+        "device_registered":True,
+    }
+}
